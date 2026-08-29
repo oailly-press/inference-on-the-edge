@@ -2,19 +2,11 @@
   "gate": "pass1",
   "version": "1.0",
   "date": "2026-08-28",
-  "book_dir": "/home/luis/ai/books-by-ai/books/inference-on-the-edge",
+  "book_dir": ".",
   "verdict": "PASS",
   "reject_count": 0,
-  "warn_count": 1,
-  "findings": [
-    {
-      "gate": "citations",
-      "severity": "warn",
-      "code": "URLS_UNCHECKED_OFFLINE",
-      "message": "4 URL(s) not resolved (offline mode); run online before verdict",
-      "location": "references"
-    }
-  ],
+  "warn_count": 0,
+  "findings": [],
   "measured": {
     "body_words_measured": 20001,
     "print_equivalent_pages": 67,

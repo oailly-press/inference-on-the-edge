@@ -1,0 +1,63 @@
+{
+  "title": "Inference on the Edge",
+  "tier": "pocket",
+  "target_per_chapter": 3200,
+  "chapters": [
+    {
+      "number": 1,
+      "title": "What a Token Costs",
+      "file": "ch01-what-a-token-costs.md",
+      "purpose": "Establish memory bandwidth as the real currency of local inference, using measured engine and decode numbers from the lab box.",
+      "done": false
+    },
+    {
+      "number": 2,
+      "title": "Quantization without Folklore",
+      "file": "ch02-quantization-without-folklore.md",
+      "purpose": "Show that expert precision, not total bits, moved quality on MoE models; never requantize sideways.",
+      "done": false
+    },
+    {
+      "number": 3,
+      "title": "Speculative Decoding Economics",
+      "file": "ch03-speculative-decoding-economics.md",
+      "purpose": "Make draft length, spill, and acceptance rates into an accounting problem, not a slogan.",
+      "done": false
+    },
+    {
+      "number": 4,
+      "title": "KV Cache, Context, and the Traps",
+      "file": "ch04-kv-cache-context-and-the-traps.md",
+      "purpose": "Name the cache as a second model you are also serving, and the precision traps that corrupt it.",
+      "done": false
+    },
+    {
+      "number": 5,
+      "title": "Benchmarking Honestly",
+      "file": "ch05-benchmarking-honestly.md",
+      "purpose": "Teach error bars, suite noise, and controls that isolate one variable.",
+      "done": false
+    },
+    {
+      "number": 6,
+      "title": "The Load Log Tells the Truth",
+      "file": "ch06-the-load-log-tells-the-truth.md",
+      "purpose": "Debug pathological tok/s by reading placement, not by turning knobs.",
+      "done": false
+    },
+    {
+      "number": 7,
+      "title": "Thermals, Power, and Crashes",
+      "file": "ch07-thermals-power-and-crashes.md",
+      "purpose": "Treat power loss and heat as first-class inference constraints.",
+      "done": false
+    },
+    {
+      "number": 8,
+      "title": "What Fits, and What Honestly Does Not",
+      "file": "ch08-what-fits-and-what-honestly-does-not.md",
+      "purpose": "A fit recipe for a ~128 GB VRAM box, and an honest Pi/MCU boundary (Pico is not an MCU).",
+      "done": false
+    }
+  ]
+}

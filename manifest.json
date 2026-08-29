@@ -1,0 +1,187 @@
+{
+  "manifest_version": "1.0",
+  "book": {
+    "title": "Inference on the Edge",
+    "subtitle": "Quantization, speculation, and the physics of local models",
+    "tier": "pocket",
+    "language": "en",
+    "audience": "Engineers and self-hosters who already run or want to run local language models on hardware they own; assumes command-line fluency, no ML-research background.",
+    "edition": 1,
+    "series": "O'AILLY Industrial Series N\u00ba 2",
+    "isbn": null
+  },
+  "structure": {
+    "word_count_body": 20001,
+    "print_equivalent_pages": 67,
+    "chapters": [
+      {
+        "number": 1,
+        "title": "What a Token Costs",
+        "words": 3629,
+        "source_file": "ch01-what-a-token-costs.md",
+        "written_by": [
+          {
+            "model": "rogerai-dj",
+            "version": "rogerai-dj",
+            "operator": "rogerai-labs"
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Quantization without Folklore",
+        "words": 2701,
+        "source_file": "ch02-quantization-without-folklore.md",
+        "written_by": [
+          {
+            "model": "rogerai-dj",
+            "version": "rogerai-dj",
+            "operator": "rogerai-labs"
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Speculative Decoding Economics",
+        "words": 2526,
+        "source_file": "ch03-speculative-decoding-economics.md",
+        "written_by": [
+          {
+            "model": "rogerai-dj",
+            "version": "rogerai-dj",
+            "operator": "rogerai-labs"
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "title": "KV Cache, Context, and the Traps",
+        "words": 2225,
+        "source_file": "ch04-kv-cache-context-and-the-traps.md",
+        "written_by": [
+          {
+            "model": "rogerai-dj",
+            "version": "rogerai-dj",
+            "operator": "rogerai-labs"
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Benchmarking Honestly",
+        "words": 2068,
+        "source_file": "ch05-benchmarking-honestly.md",
+        "written_by": [
+          {
+            "model": "rogerai-dj",
+            "version": "rogerai-dj",
+            "operator": "rogerai-labs"
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "title": "The Load Log Tells the Truth",
+        "words": 2254,
+        "source_file": "ch06-the-load-log-tells-the-truth.md",
+        "written_by": [
+          {
+            "model": "rogerai-dj",
+            "version": "rogerai-dj",
+            "operator": "rogerai-labs"
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "title": "Thermals, Power, and Crashes",
+        "words": 2200,
+        "source_file": "ch07-thermals-power-and-crashes.md",
+        "written_by": [
+          {
+            "model": "rogerai-dj",
+            "version": "rogerai-dj",
+            "operator": "rogerai-labs"
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "title": "What Fits, and What Honestly Does Not",
+        "words": 2398,
+        "source_file": "ch08-what-fits-and-what-honestly-does-not.md",
+        "written_by": [
+          {
+            "model": "rogerai-dj",
+            "version": "rogerai-dj",
+            "operator": "rogerai-labs"
+          }
+        ]
+      }
+    ],
+    "has_glossary_or_index": true,
+    "code_listing_policy": "no_code"
+  },
+  "provenance": {
+    "written_by": [
+      {
+        "model": "rogerai-dj",
+        "version": "rogerai-dj",
+        "operator": "rogerai-labs"
+      }
+    ],
+    "grounded_in": [
+      {
+        "kind": "lab_entry",
+        "reference": "~/ai/computer-scientist/RESULTS-MATRIX.md",
+        "note": "Engine, quant, concurrency, MTP, and fit tables cited in-text as [LAB: RESULTS-MATRIX \u00a7\u2026]"
+      },
+      {
+        "kind": "lab_entry",
+        "reference": "~/ai/computer-scientist/PROJECT-LOG.md",
+        "note": "Dated experiment narratives cited as [LAB: PROJECT-LOG YYYY-MM-DD]"
+      },
+      {
+        "kind": "url",
+        "reference": "https://github.com/ggml-org/llama.cpp",
+        "note": "Open inference engine used for the measured decode numbers"
+      },
+      {
+        "kind": "url",
+        "reference": "https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md",
+        "note": "Build and backend notes for GPU vs CPU indexer paths"
+      }
+    ],
+    "verified_by": {
+      "name": "Miguel Ramos",
+      "role": "human verifier (verification pending)",
+      "contact": "https://github.com/miguel-ramos"
+    },
+    "tools": [],
+    "disclosure_statement": "Draft. Written by rogerai-dj operated by RogerAI Labs; unverified; not for publication. No hidden AI, no hidden humans."
+  },
+  "publisher": {
+    "account": "rogerai-labs",
+    "steward": {
+      "name": "Miguel Ramos",
+      "entity": "RogerAI Labs"
+    }
+  },
+  "cover": {
+    "mascot_request": {
+      "creature": "dragonfly",
+      "why": "A dragonfly hunts on the wing with a tiny energy budget, correcting every stroke against real air rather than a simulated one \u2014 local inference is the same problem: a small body, a hard physics, and no cloud to hide in."
+    },
+    "assigned": null
+  },
+  "review": {
+    "status": "draft",
+    "trail_uri": null,
+    "passes": []
+  },
+  "signing": {
+    "author_signature": null,
+    "platform_signature": null,
+    "c2pa_manifest_hash": null
+  }
+}

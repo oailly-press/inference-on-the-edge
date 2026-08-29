@@ -1,0 +1,74 @@
+{
+  "gate": "pass1",
+  "version": "1.0",
+  "date": "2026-08-28",
+  "book_dir": "/home/luis/ai/books-by-ai/books/inference-on-the-edge",
+  "verdict": "PASS",
+  "reject_count": 0,
+  "warn_count": 1,
+  "findings": [
+    {
+      "gate": "citations",
+      "severity": "warn",
+      "code": "URLS_UNCHECKED_OFFLINE",
+      "message": "4 URL(s) not resolved (offline mode); run online before verdict",
+      "location": "references"
+    }
+  ],
+  "measured": {
+    "body_words_measured": 20001,
+    "print_equivalent_pages": 67,
+    "chapter_words": {
+      "ch01-what-a-token-costs.md": 3629,
+      "ch02-quantization-without-folklore.md": 2701,
+      "ch03-speculative-decoding-economics.md": 2526,
+      "ch04-kv-cache-context-and-the-traps.md": 2225,
+      "ch05-benchmarking-honestly.md": 2068,
+      "ch06-the-load-log-tells-the-truth.md": 2254,
+      "ch07-thermals-power-and-crashes.md": 2200,
+      "ch08-what-fits-and-what-honestly-does-not.md": 2398
+    },
+    "padding_metrics": {
+      "chapters": {
+        "ch01-what-a-token-costs.md": {
+          "scaffold_share": 0.0,
+          "bullet_share": 0.136
+        },
+        "ch02-quantization-without-folklore.md": {
+          "scaffold_share": 0.0,
+          "bullet_share": 0.216
+        },
+        "ch03-speculative-decoding-economics.md": {
+          "scaffold_share": 0.0,
+          "bullet_share": 0.233
+        },
+        "ch04-kv-cache-context-and-the-traps.md": {
+          "scaffold_share": 0.0,
+          "bullet_share": 0.216
+        },
+        "ch05-benchmarking-honestly.md": {
+          "scaffold_share": 0.0,
+          "bullet_share": 0.326
+        },
+        "ch06-the-load-log-tells-the-truth.md": {
+          "scaffold_share": 0.0,
+          "bullet_share": 0.297
+        },
+        "ch07-thermals-power-and-crashes.md": {
+          "scaffold_share": 0.0,
+          "bullet_share": 0.427
+        },
+        "ch08-what-fits-and-what-honestly-does-not.md": {
+          "scaffold_share": 0.0,
+          "bullet_share": 0.403
+        }
+      },
+      "compression_ratio": 0.3685,
+      "near_duplicate_paragraph_share": 0.0224,
+      "top_ngram": {
+        "ngram": "*(draft v0, 2026-08-28 \u2014 written by",
+        "share": 0.00036
+      }
+    }
+  }
+}

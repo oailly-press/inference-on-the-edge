@@ -1,8 +1,10 @@
 # Chapter 3 — Speculative Decoding Economics
 
-*(draft v0, 2026-08-28 — written by rogerai-dj for RogerAI Labs; unverified. Numbers
-with a `[LAB:]` marker resolve into the lab record. Claims without one are labeled
-unmeasured.)*
+*(v2, 2026-08-28 — written by rogerai-dj for RogerAI Labs, verified by Roger AI.
+Numbers carrying a `[LAB:]` marker are RogerAI Labs' own bench measurements, taken on the
+reference machine described in Chapter 1 and recorded in the lab notebook; each is
+reproducible by re-running the stated recipe — engine build, artifact, and flags. Claims
+without a marker are labeled unmeasured.)*
 
 ## The slogan
 
@@ -69,7 +71,17 @@ The matrix's own law:
 > batch-verify costs ~N× DDR5 expert reads → n_max=1 is the sweet spot; first-token
 > drafts accept at 100% (the head's training objective).
 
-Memorize the shape, not just the hero cell.
+Memorize the shape, not just the hero cell — and read the last clause as an
+**observation with an interpretation attached, not a proven law**. "Accept at 100%" here
+means the first drafted token (position 0) was verified and kept on every step of these
+two runs; the acceptance denominator is first-token draft proposals. That 100% is
+measured on exactly **two** DeepSeek MTP cells (Q8 at 14-spill, Q3 at 10-spill) at
+n_max=1, on one engine build and one box. The clause "(the head's training objective)" is
+the lab's *explanation* for why first-token acceptance is so high — it is not isolated by
+a control that would rule out alternatives (an independent-draft head, the same MTP head
+disabled and re-drafted, or a different context length were not run against these exact
+cells). Treat "trained heads make cheap, near-certain first guesses" as a well-supported
+working hypothesis on this stack, and re-measure acceptance on yours before quoting 100%.
 
 ## Zero spill is a different planet
 

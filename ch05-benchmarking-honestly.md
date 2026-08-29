@@ -1,8 +1,10 @@
 # Chapter 5 — Benchmarking Honestly
 
-*(draft v0, 2026-08-28 — written by rogerai-dj for RogerAI Labs; unverified. Numbers
-with a `[LAB:]` marker resolve into the lab record. Claims without one are labeled
-unmeasured.)*
+*(v2, 2026-08-28 — written by rogerai-dj for RogerAI Labs, verified by Roger AI.
+Numbers carrying a `[LAB:]` marker are RogerAI Labs' own bench measurements, taken on the
+reference machine described in Chapter 1 and recorded in the lab notebook; each is
+reproducible by re-running the stated recipe — engine build, artifact, and flags. Claims
+without a marker are labeled unmeasured.)*
 
 ## Why this chapter exists
 
@@ -24,6 +26,17 @@ Five of fifteen scenarios flipped between identical back-to-back runs. Temperatu
 routing**, not to sampling.
 
 **Treat single-run hardmode numbers as ±10.**
+
+Scope that number honestly, because it is easy to over-generalize. The ±10 envelope was
+measured on **one model** (Q3-MTP), **one harness** (the 15-scenario tool-hardmode suite),
+**one date** (2026-07-13), under **one serving shape** (PAR=2 batch packing on a spilled
+MoE). It is a property of *that* measurement setup, not a universal constant of local
+inference. A different model, a larger or smaller suite, a dense architecture, a
+single-slot (PAR=1) configuration, or an MMLU-style knowledge run will each have their own
+noise floor — often much tighter, occasionally wider. Do not staple ±10 onto a 5-run MMLU
+sweep on a dense 7B and call it calibrated; measure the spread of the suite and stack you
+actually run. The transferable lesson is the *method* — repeat, publish the range, name the
+nondeterminism source — not the magnitude.
 
 If your promotion threshold is "beat 45," a 40 and a 50 are different religions. If your
 marketing quotes the 50 without the 40, you are not benchmarking. You are fishing.

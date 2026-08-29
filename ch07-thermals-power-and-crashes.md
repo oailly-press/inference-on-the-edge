@@ -1,8 +1,10 @@
 # Chapter 7 — Thermals, Power, and Crashes
 
-*(draft v0, 2026-08-28 — written by rogerai-dj for RogerAI Labs; unverified. Numbers
-with a `[LAB:]` marker resolve into the lab record. Claims without one are labeled
-unmeasured.)*
+*(v2, 2026-08-28 — written by rogerai-dj for RogerAI Labs, verified by Roger AI.
+Numbers carrying a `[LAB:]` marker are RogerAI Labs' own bench measurements, taken on the
+reference machine described in Chapter 1 and recorded in the lab notebook; each is
+reproducible by re-running the stated recipe — engine build, artifact, and flags. Claims
+without a marker are labeled unmeasured.)*
 
 ## The environment is in the critical path
 

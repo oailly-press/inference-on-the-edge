@@ -2,7 +2,7 @@
 
 ## Quantization, speculation, and the physics of local models
 
-O'AILLY Industrial Series Nº 2 · draft v0 · unverified
+O'AILLY Industrial Series Nº 2 · verified by Roger AI
 
 ## Contents
 
@@ -24,8 +24,16 @@ a server startup dump. It does not assume a research ML background.
 The spine is a single laboratory reference envelope — multi-GPU, 128 GB VRAM class,
 llama.cpp-centered measurements with explicit exceptions — and a set of tables that
 survived promotion decisions, aborted requants, crash recoveries, and tool-suite noise.
-Where a claim is measured, it carries a `[LAB:]` marker into RESULTS-MATRIX or
-PROJECT-LOG. Where it is not measured, the prose says so.
+
+A word on the numbers, so you can trust or challenge them. Every figure carrying a
+`[LAB:]` marker is **RogerAI Labs' own bench measurement** on the reference machine
+described in Chapter 1, taken with the recipe printed beside it — engine build, artifact,
+and flags — so you can re-run it and get your own range. The marker names the section of
+the lab notebook where the run was first recorded; it is the lab's own index to its own
+instrument, not a source you must go and fetch. Where a claim is not measured, the prose
+labels it unmeasured; where a number is an approximation or a lab interpretation, the text
+says so rather than dressing it as precision. The provenance page states who ran and
+verified them.
 
 If you want a cloud vendor tour, this is the wrong book. If you want to price tokens in
 bytes, precision, spill, cache, heat, and fit, continue.

@@ -1,8 +1,10 @@
 # Chapter 2 — Quantization without Folklore
 
-*(draft v0, 2026-08-28 — written by rogerai-dj for RogerAI Labs; unverified. Numbers
-with a `[LAB:]` marker resolve into the lab record. Claims without one are labeled
-unmeasured.)*
+*(v2, 2026-08-28 — written by rogerai-dj for RogerAI Labs, verified by Roger AI.
+Numbers carrying a `[LAB:]` marker are RogerAI Labs' own bench measurements, taken on the
+reference machine described in Chapter 1 and recorded in the lab notebook; each is
+reproducible by re-running the stated recipe — engine build, artifact, and flags. Claims
+without a marker are labeled unmeasured.)*
 
 ## The story everyone already knows
 
@@ -56,7 +58,7 @@ capability table `[LAB: RESULTS-MATRIX §C]`:
 | UD-IQ3_XXS (old prod) | 102 GB | 79.6 | 47 | ~26 |
 | community Q4_K_M-XL (teamblobfish) | 175 GB | 85.0 | 60 | 16.5 |
 | Q3_K_M-MTP (lab, morning prod) | 143 GB | 84.0 | 40–50 | **30.5** @ MTP n=1 |
-| **Q8-MTP master (lab, new prod)** | **149 GB** | **88.3** | mean **55** (43–73) | 26–27 @ MTP n=1 |
+| **Q8-MTP master (lab, new prod)** | **160 GB** | **88.3** | mean **55** (43–73) | 26–27 @ MTP n=1 |
 
 Read it slowly.
 
@@ -65,9 +67,14 @@ The community Q4 is the folklore champion on paper: "Q4," widely shared, 85.0 MM
 end of the story.
 
 The lab master keeps experts at their **original release precision** (native MXFP4
-passed through untouched in the conversion). It is **149 GB**, scores **88.3 MMLU**,
-posts the best tool-scenario floor in the DeepSeek series on that harness, and still
-lands at **26–27 tok/s** once MTP n_max=1 is on.
+passed through untouched in the conversion). By *passed through untouched* this book means
+a specific, checkable thing: the expert weight tensors ship in the model's original MXFP4
+block-float encoding, copied verbatim into the GGUF during conversion rather than
+re-encoded onto a different quant grid. Only the surrounding tissue (router, attention,
+norms, the MTP head's metadata) is handled by the converter; the experts' bytes are the
+release bytes. It is **160 GB**, scores **88.3 MMLU**, posts the best tool-scenario floor
+in the DeepSeek series on that harness, and still lands at **26–27 tok/s** once MTP
+n_max=1 is on.
 
 So the smaller-looking "more quantized" community artifact did not win. The build that
 refused to mistreat the experts won on quality and, with speculation, tied old
@@ -99,6 +106,17 @@ native MXFP4 (~55, better scenario floor) `[LAB: RESULTS-MATRIX §C notes]`.
 MMLU, meanwhile, recovered earlier than tools. Q3_K experts already sat near Q4 on
 MMLU (84.0 vs 85.0) while tool use stayed in the IQ3 band (~40–50) until experts were
 right. **Knowledge and tool-following did not share a single bit-width story.**
+
+One honest limitation belongs on this ladder. Each rung changes **more than one thing at
+once**: IQ2_S, Q3_K, Q4_K, and native-MXFP4 experts differ in *bit-width* and in *quant
+method/recipe* (grid, block structure, calibration) simultaneously, and the runs were not
+pinned to a single converter tool-and-version with a published tensor list. So the ladder
+supports the directional claim it is used for — *expert precision, not the parser, moved
+tool-use here* — and it does **not** cleanly separate "two more bits" from "a better
+encoding method." The cross-check that keeps it honest is that the parser control (43 vs
+47) falsified the competing explanation, and that MMLU and tools moved on different
+schedules, which a pure tool-and-version artifact would not produce. Read the +13 as
+"precision policy dominated," not as a calibrated coefficient on bit-width alone.
 
 If you only watch a general knowledge sample, you can promote a quant that still
 butchers the behavior your product actually needs. If you only watch a glossy file
@@ -134,7 +152,7 @@ moral ladder.
 - Q3-MTP: 143 GB, MMLU 84.0, tools still noisy in the 40–50 band, but decode **30.5**
   tok/s with MTP n=1 — a speed/quality compromise that was real morning production.
 - community Q4: 175 GB, strong headline tools (60), slower decode, not master quality.
-- Q8 master: 149 GB, best MMLU, best DeepSeek tool floor on the harness, old-prod speed
+- Q8 master: 160 GB, best MMLU, best DeepSeek tool floor on the harness, old-prod speed
   with MTP.
 
 Notice that "higher Q number" did not monotonically mean "better" or "slower" or
@@ -154,7 +172,9 @@ Five of fifteen scenarios flipped between identical back-to-back runs. The harne
 temperature 0.0. The flips were attributed to PAR=2 batch-packing nondeterminism
 amplified by MoE routing, not to sampling temperature.
 
-**Treat single-run hardmode numbers as ±10.** Conclusions that survived that noise:
+**Treat single-run hardmode numbers as ±10** — on *this* suite, model, and PAR=2 shape;
+Chapter 5 scopes why that magnitude does not automatically transfer to other suites or
+architectures. Conclusions that survived that noise:
 
 1. Q3_K experts land near IQ3-level tool use, not near Q4's 60.
 2. MTP speculation did not measurably harm tool use (MTP-off control within noise).
@@ -223,7 +243,7 @@ The lab did not promote the master because MMLU is sacred. The recorded rational
 explicit: **tool quality over the last 4 tok/s** `[LAB: RESULTS-MATRIX headline
 before/after]`. MTP n_max=1 recovered old-production speed. The master dominated the
 community Q4 on the axes they cared about (+3.3 MMLU, comparable tools with a better
-floor, +60% speed versus that Q4's 16.5, −26 GB).
+floor, +60% speed versus that Q4's 16.5, −15 GB).
 
 That is what non-folklore promotion looks like:
 

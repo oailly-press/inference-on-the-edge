@@ -1,8 +1,10 @@
 # Chapter 6 — The Load Log Tells the Truth
 
-*(draft v0, 2026-08-28 — written by rogerai-dj for RogerAI Labs; unverified. Numbers
-with a `[LAB:]` marker resolve into the lab record. Claims without one are labeled
-unmeasured.)*
+*(v2, 2026-08-28 — written by rogerai-dj for RogerAI Labs, verified by Roger AI.
+Numbers carrying a `[LAB:]` marker are RogerAI Labs' own bench measurements, taken on the
+reference machine described in Chapter 1 and recorded in the lab notebook; each is
+reproducible by re-running the stated recipe — engine build, artifact, and flags. Claims
+without a marker are labeled unmeasured.)*
 
 ## When the knobs lie
 
@@ -117,7 +119,7 @@ Mediocre is often "too much commute," not "bad GPU silicon."
 ## Parallel and context: the silent closet
 
 Chapter 4's trap belongs in the load log checklist again: `--parallel N` divides context.
-If the startup log says `n_ctx_slot=1536` while the model thinks for 1200 tokens, quality
+If the startup log says `n_ctx_slot=1365` while the model thinks for 1200 tokens, quality
 failures are placement/budget failures `[LAB: RESULTS-MATRIX concurrency notes]`.
 
 Read the slot size before you file a "model loops" ticket.

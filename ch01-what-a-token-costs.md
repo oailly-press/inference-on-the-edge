@@ -1,8 +1,10 @@
 # Chapter 1 — What a Token Costs
 
-*(draft v0, 2026-08-28 — written by rogerai-dj for RogerAI Labs; unverified. Numbers
-with a `[LAB:]` marker resolve into the lab record. Claims without one are labeled
-unmeasured.)*
+*(v2, 2026-08-28 — written by rogerai-dj for RogerAI Labs, verified by Roger AI.
+Numbers carrying a `[LAB:]` marker are RogerAI Labs' own bench measurements, taken on the
+reference machine described in Chapter 1 and recorded in the lab notebook; each is
+reproducible by re-running the stated recipe — engine build, artifact, and flags. Claims
+without a marker are labeled unmeasured.)*
 
 ## The wrong unit
 
@@ -62,6 +64,17 @@ Take one model, hold it fixed, and change only the engine. The lab did that with
 
 `[LAB: RESULTS-MATRIX §A]`
 
+Every cell above is **warm single-stream decode** on the same 102 GB UD-IQ3_XXS artifact,
+short fixed prompt, on the reference box. The CPU-indexer rows carry an approximate figure
+(`~2`, `~10.8`) rather than a tight range on purpose: those builds were *bimodal and
+unstable* — the instability is the measurement, not a hidden orphan number. The stable GPU
+row carries a real range (24.5–28.5 across runs) because it was stable enough to have one.
+This book's own rule (Chapter 5) is to refuse a number without a range; the honest form of
+that rule for a pathological configuration is to publish the approximation **and** name it
+as unstable, not to invent a false precision. The historical `~26` old-production baseline
+is likewise a warm single-stream approximation on this artifact, not a promoted, ranged
+production number.
+
 Same weights. Same cards. Same host. Decode moved from a cratered ~2 tok/s to a stable
 26 tok/s because the lightning indexer stopped living on the CPU. Prefill moved with
 it: roughly 50–80 tok/s on CPU-indexer builds versus ~130 tok/s once the indexer was on
@@ -98,7 +111,7 @@ expert sets — and tok/s falls. Everything marketed as a "speed tip" is one of 
 moves in costume.
 
 That is why a smaller file is not automatically faster. A 175 GB Q4 that spills hard
-into host memory can lose to a 149 GB master that stays resident, even though the Q4
+into host memory can lose to a 160 GB master that stays resident, even though the Q4
 looks "more quantized" on a spreadsheet. The lab's promotion decision later in the
 matrix is exactly that story: tool quality preferred over the last few tok/s, but only
 after measuring that the master could still land at old-production speed with
@@ -142,7 +155,7 @@ Hold the engine culture roughly fixed and look across models on the reference ma
 | DeepSeek-V4-Flash IQ3 (old prod) | 102 GB | ~26 | baseline production |
 | DeepSeek-V4-Flash community Q4 | 175 GB | 16.5 | bigger file, slower decode |
 | DeepSeek-V4-Flash Q3-MTP | 143 GB | **30.5** @ MTP n=1 | speculation on |
-| DeepSeek-V4-Flash Q8-MTP master | 149 GB | 26–27 @ MTP n=1 | quality ceiling, old speed |
+| DeepSeek-V4-Flash Q8-MTP master | 160 GB | 26–27 @ MTP n=1 | quality ceiling, old speed |
 | Qwen3.6-27B dense Q8_0 | 29 GB | ~27 | much smaller dense model |
 | gpt-oss-120b MXFP4 (vLLM TP=4) | ~60 GB | 60 wall-clock | different engine |
 
@@ -254,9 +267,12 @@ On the reference matrix `[LAB: RESULTS-MATRIX §E]`:
 - The same DeepSeek Q8-MTP with 24 layers spilled falls below baseline at n_max=3
   (0.86×): speculation can lose.
 
-The matrix states the law in one line: speedup grows as spill shrinks; on spill-bound
-MoE, batch-verify costs pile into DDR5 expert reads, so n_max=1 is the sweet spot; the
-head's training objective shows up as 100% first-token acceptance.
+The matrix states the pattern in one line: speedup grows as spill shrinks; on spill-bound
+MoE, batch-verify costs pile into DDR5 expert reads, so n_max=1 is the sweet spot; and on
+these two DeepSeek cells the first drafted token was accepted every step (100%). Chapter 3
+carries the caveat this summary compresses: that 100% is two cells on one stack, and
+attributing it to "the head's training objective" is the lab's interpretation, not a
+result isolated by a control.
 
 That is pure chapter-1 material. Speculation does not repeal bandwidth limits. It
 changes the numerator: accepted tokens per expensive read. If your draft forces extra
@@ -276,7 +292,7 @@ before/after]`:
 | MMLU | 79.6 | 84.0 | **88.3** |
 | Tool hardmode | 43–47 | 40–50 | mean 55 (best floor) |
 | Warm decode | ~26 | 30.5 | 26–27 |
-| Size / spill | 102 GB / 4 layers | 143 GB / 10 | 149 GB / 14 |
+| Size / spill | 102 GB / 4 layers | 143 GB / 10 | 160 GB / 14 |
 
 The promotion rationale is on the record: tool quality over the last 4 tok/s. The
 master kept native expert precision, speculative decoding paid the spill back, and the

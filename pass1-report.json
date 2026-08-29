@@ -2,64 +2,64 @@
   "gate": "pass1",
   "version": "1.0",
   "date": "2026-08-28",
-  "book_dir": ".",
+  "book_dir": "/tmp/rev-inf",
   "verdict": "PASS",
   "reject_count": 0,
   "warn_count": 0,
   "findings": [],
   "measured": {
-    "body_words_measured": 20001,
-    "print_equivalent_pages": 67,
+    "body_words_measured": 21220,
+    "print_equivalent_pages": 71,
     "chapter_words": {
-      "ch01-what-a-token-costs.md": 3629,
-      "ch02-quantization-without-folklore.md": 2701,
-      "ch03-speculative-decoding-economics.md": 2526,
-      "ch04-kv-cache-context-and-the-traps.md": 2225,
-      "ch05-benchmarking-honestly.md": 2068,
-      "ch06-the-load-log-tells-the-truth.md": 2254,
-      "ch07-thermals-power-and-crashes.md": 2200,
-      "ch08-what-fits-and-what-honestly-does-not.md": 2398
+      "ch01-what-a-token-costs.md": 3834,
+      "ch02-quantization-without-folklore.md": 2952,
+      "ch03-speculative-decoding-economics.md": 2704,
+      "ch04-kv-cache-context-and-the-traps.md": 2551,
+      "ch05-benchmarking-honestly.md": 2231,
+      "ch06-the-load-log-tells-the-truth.md": 2286,
+      "ch07-thermals-power-and-crashes.md": 2232,
+      "ch08-what-fits-and-what-honestly-does-not.md": 2430
     },
     "padding_metrics": {
       "chapters": {
         "ch01-what-a-token-costs.md": {
           "scaffold_share": 0.0,
-          "bullet_share": 0.136
+          "bullet_share": 0.13
         },
         "ch02-quantization-without-folklore.md": {
           "scaffold_share": 0.0,
-          "bullet_share": 0.216
+          "bullet_share": 0.205
         },
         "ch03-speculative-decoding-economics.md": {
           "scaffold_share": 0.0,
-          "bullet_share": 0.233
+          "bullet_share": 0.222
         },
         "ch04-kv-cache-context-and-the-traps.md": {
           "scaffold_share": 0.0,
-          "bullet_share": 0.216
+          "bullet_share": 0.195
         },
         "ch05-benchmarking-honestly.md": {
           "scaffold_share": 0.0,
-          "bullet_share": 0.326
+          "bullet_share": 0.309
         },
         "ch06-the-load-log-tells-the-truth.md": {
           "scaffold_share": 0.0,
-          "bullet_share": 0.297
+          "bullet_share": 0.294
         },
         "ch07-thermals-power-and-crashes.md": {
           "scaffold_share": 0.0,
-          "bullet_share": 0.427
+          "bullet_share": 0.423
         },
         "ch08-what-fits-and-what-honestly-does-not.md": {
           "scaffold_share": 0.0,
-          "bullet_share": 0.403
+          "bullet_share": 0.4
         }
       },
-      "compression_ratio": 0.3685,
-      "near_duplicate_paragraph_share": 0.0224,
+      "compression_ratio": 0.3647,
+      "near_duplicate_paragraph_share": 0.022,
       "top_ngram": {
-        "ngram": "*(draft v0, 2026-08-28 \u2014 written by",
-        "share": 0.00036
+        "ngram": "*(v2, 2026-08-28 \u2014 written by rogerai-dj",
+        "share": 0.00034
       }
     }
   }

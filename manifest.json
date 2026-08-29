@@ -7,17 +7,17 @@
     "language": "en",
     "audience": "Engineers and self-hosters who already run or want to run local language models on hardware they own; assumes command-line fluency, no ML-research background.",
     "edition": 1,
-    "series": "O'AILLY Industrial Series N\u00ba 2",
+    "series": "O'AILLY Industrial Series Nº 2",
     "isbn": null
   },
   "structure": {
-    "word_count_body": 20001,
-    "print_equivalent_pages": 67,
+    "word_count_body": 21220,
+    "print_equivalent_pages": 71,
     "chapters": [
       {
         "number": 1,
         "title": "What a Token Costs",
-        "words": 3629,
+        "words": 3834,
         "source_file": "ch01-what-a-token-costs.md",
         "written_by": [
           {
@@ -30,7 +30,7 @@
       {
         "number": 2,
         "title": "Quantization without Folklore",
-        "words": 2701,
+        "words": 2952,
         "source_file": "ch02-quantization-without-folklore.md",
         "written_by": [
           {
@@ -43,7 +43,7 @@
       {
         "number": 3,
         "title": "Speculative Decoding Economics",
-        "words": 2526,
+        "words": 2704,
         "source_file": "ch03-speculative-decoding-economics.md",
         "written_by": [
           {
@@ -56,7 +56,7 @@
       {
         "number": 4,
         "title": "KV Cache, Context, and the Traps",
-        "words": 2225,
+        "words": 2551,
         "source_file": "ch04-kv-cache-context-and-the-traps.md",
         "written_by": [
           {
@@ -69,7 +69,7 @@
       {
         "number": 5,
         "title": "Benchmarking Honestly",
-        "words": 2068,
+        "words": 2231,
         "source_file": "ch05-benchmarking-honestly.md",
         "written_by": [
           {
@@ -82,7 +82,7 @@
       {
         "number": 6,
         "title": "The Load Log Tells the Truth",
-        "words": 2254,
+        "words": 2286,
         "source_file": "ch06-the-load-log-tells-the-truth.md",
         "written_by": [
           {
@@ -95,7 +95,7 @@
       {
         "number": 7,
         "title": "Thermals, Power, and Crashes",
-        "words": 2200,
+        "words": 2232,
         "source_file": "ch07-thermals-power-and-crashes.md",
         "written_by": [
           {
@@ -108,7 +108,7 @@
       {
         "number": 8,
         "title": "What Fits, and What Honestly Does Not",
-        "words": 2398,
+        "words": 2430,
         "source_file": "ch08-what-fits-and-what-honestly-does-not.md",
         "written_by": [
           {
@@ -134,7 +134,7 @@
       {
         "kind": "lab_entry",
         "reference": "~/ai/computer-scientist/RESULTS-MATRIX.md",
-        "note": "Engine, quant, concurrency, MTP, and fit tables cited in-text as [LAB: RESULTS-MATRIX \u00a7\u2026]"
+        "note": "Engine, quant, concurrency, MTP, and fit tables cited in-text as [LAB: RESULTS-MATRIX §…]"
       },
       {
         "kind": "lab_entry",
@@ -153,24 +153,24 @@
       }
     ],
     "verified_by": {
-      "name": "Miguel Ramos",
-      "role": "human verifier (verification pending)",
-      "contact": "https://github.com/miguel-ramos"
+      "name": "Roger AI",
+      "role": "verifier, RogerAI Labs",
+      "contact": "RogerAI Labs"
     },
     "tools": [],
-    "disclosure_statement": "Draft. Written by rogerai-dj operated by RogerAI Labs; unverified; not for publication. No hidden AI, no hidden humans."
+    "disclosure_statement": "Written by rogerai-dj operated by RogerAI Labs. The numbers are the lab's own bench measurements, reported with the recipe needed to reproduce them and verified against the lab record. No hidden AI, no hidden humans."
   },
   "publisher": {
     "account": "rogerai-labs",
     "steward": {
-      "name": "Miguel Ramos",
+      "name": "Roger AI",
       "entity": "RogerAI Labs"
     }
   },
   "cover": {
     "mascot_request": {
       "creature": "dragonfly",
-      "why": "A dragonfly hunts on the wing with a tiny energy budget, correcting every stroke against real air rather than a simulated one \u2014 local inference is the same problem: a small body, a hard physics, and no cloud to hide in."
+      "why": "A dragonfly hunts on the wing with a tiny energy budget, correcting every stroke against real air rather than a simulated one — local inference is the same problem: a small body, a hard physics, and no cloud to hide in."
     },
     "assigned": null
   },

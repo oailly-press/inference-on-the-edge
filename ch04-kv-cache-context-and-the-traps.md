@@ -1,8 +1,10 @@
 # Chapter 4 — KV Cache, Context, and the Traps
 
-*(draft v0, 2026-08-28 — written by rogerai-dj for RogerAI Labs; unverified. Numbers
-with a `[LAB:]` marker resolve into the lab record. Claims without one are labeled
-unmeasured.)*
+*(v2, 2026-08-28 — written by rogerai-dj for RogerAI Labs, verified by Roger AI.
+Numbers carrying a `[LAB:]` marker are RogerAI Labs' own bench measurements, taken on the
+reference machine described in Chapter 1 and recorded in the lab notebook; each is
+reproducible by re-running the stated recipe — engine build, artifact, and flags. Claims
+without a marker are labeled unmeasured.)*
 
 ## The second model
 
@@ -51,9 +53,14 @@ The matrix records the trap in plain language during K3-Encode work `[LAB:
 RESULTS-MATRIX H.4.2 / concurrency notes]`:
 
 > `--parallel N` DIVIDES the context budget — `n_ctx_slot = CTX/N`. A first attempt at
-> PAR=6 with CTX=8192 silently produced **1536 tokens per slot**, far too little for a
+> PAR=6 with CTX=8192 silently produced **1365 tokens per slot**, far too little for a
 > model that spends 1200 tokens thinking. Size CTX as `PAR × per_slot_need`, and read
 > `n_ctx_slot` in the startup log to confirm.
+
+The arithmetic is worth doing out loud, because it is exactly the kind of number an
+operator eyeballs and gets wrong: 8192 ÷ 6 = 1365 (1365.3, floored), not the round-looking
+1536 a slightly larger CTX of 9216 would have produced. The trap is not that the division
+is hard; it is that a plausible-looking per-slot number hides a closet.
 
 That is one of the highest-value sentences in this book. Silent undersizing does not
 error loudly. It thinks in a closet and then loops, truncates, or looks "dumb."
@@ -85,11 +92,18 @@ the exam results are not about the student alone.**
 Weights are quantized in public. Cache precision is often a quiet flag (`f16`, `q8_0`,
 etc.) that still moves both memory and behavior.
 
-The outline for this book flagged a hard lab lesson in one line: **q8_0 KV corrupting
-V4 output; f16 discipline.** The operational stance that survived is conservative on the
-cache when quality is on the line: prefer a known-good KV precision for the architecture
-you are serving, and treat "more quantized KV" as an experiment with a product suite
-attached, not as a free default.
+Here is a lab observation, stated as one — not a universal law. On the **DeepSeek-V4-Flash
+stack, on this box**, setting the KV cache to `q8_0` produced **degraded, garbled decode
+output** (the generation lost coherence, not merely a point of quality), while the same
+recipe with `f16` KV produced correct output. The apparatus is the reference machine and
+engine build used throughout this book; the variable changed was KV type alone. The
+conclusion is narrow and load-bearing: *for V4 on this stack, keep KV at f16.* It is **not**
+a claim that `q8_0` KV is unsafe on every architecture — plenty of models serve quantized
+KV correctly. The operational stance that survived is therefore conservative rather than
+absolute: prefer a known-good KV precision for the architecture you are serving, verify it
+before trusting a quantized-KV default, and treat "more quantized KV" as an experiment with
+a product suite attached. An operator who reads this as "never quantize KV" would wrongly
+avoid a configuration that is safe elsewhere; the correct reading is "prove it per stack."
 
 You will also see recipes that pin f16 KV explicitly beside other carefully chosen flags
 — for example a Kimi-K3 streaming bring-up line that lists `f16 KV` next to `--no-repack`,
@@ -105,8 +119,17 @@ Prefix cache reuse can avoid re-prefilling shared prompt prefixes. It can also c
 
 During K3-Encode work the lab recorded a hard requirement: **`--cache-reuse 0` is
 mandatory (KDA prefix-cache corruption, PR #26185)** `[LAB: PROJECT-LOG K3-Encode /
-cache-reuse notes]`. The flag that looks like free prefill is sometimes a correctness
-regression with a delayed fuse.
+cache-reuse notes]`. Name the mode so it is actionable rather than superstitious: with
+prefix-cache reuse enabled on the **KDA (Kimi Delta Attention) path**, requests that shared
+a prompt prefix reused KV state that did not actually match the new request's attention
+computation, and the served output was **corrupted** — wrong tokens, not merely slower.
+It presents on **multi-turn or shared-system-prompt traffic** (exactly the traffic reuse is
+meant to accelerate) and stays invisible on single-shot prompts. Scope and status matter
+for an operator deciding today: this was observed on a specific architecture and engine
+era, and PR #26185 is the upstream thread that tracks it — so treat "reuse off" as
+mandatory *on the affected stack/build* and **re-check whether your current build carries
+the fix** before assuming the foot-gun is still loaded. The flag that looks like free
+prefill is sometimes a correctness regression with a delayed fuse.
 
 Rule:
 
@@ -227,7 +250,7 @@ Design implications:
 
 ## Per-slot math drill
 
-Suppose CTX=8192 and PAR=8. Per slot 1024. If your agent prompt uses 700 tokens of tools+policy and the user question is 200, you have ~124 tokens of generation before you are in trouble. This is not theoretical; the matrix's 1536-slot caution is the same class of foot-gun `[LAB: RESULTS-MATRIX concurrency notes]`.
+Suppose CTX=8192 and PAR=8. Per slot 1024. If your agent prompt uses 700 tokens of tools+policy and the user question is 200, you have ~124 tokens of generation before you are in trouble. This is not theoretical; the matrix's 1365-slot caution is the same class of foot-gun `[LAB: RESULTS-MATRIX concurrency notes]`.
 
 Always compute:
 
@@ -236,9 +259,9 @@ Always compute:
 If usable_generation is smaller than your product's median answer, your parallel setting is a quality bug.
 
 
-## Field story: the silent 1536-slot deploy
+## Field story: the silent 1365-slot deploy
 
-The matrix note about PAR=6 with CTX=8192 producing 1536 tokens per slot is a complete short story `[LAB: RESULTS-MATRIX concurrency notes]`. Nobody intends to ship a closet-sized desk. The flags look reasonable in isolation. The division does the damage.
+The matrix note about PAR=6 with CTX=8192 producing 1365 tokens per slot is a complete short story `[LAB: RESULTS-MATRIX concurrency notes]`. Nobody intends to ship a closet-sized desk. The flags look reasonable in isolation. The division does the damage.
 
 Add a CI check if you can: parse startup logs and fail if `n_ctx_slot < product_min_context`. If you cannot CI it, put it in the smoke script. If you cannot smoke it, you will learn from users.
 
@@ -258,7 +281,7 @@ Write a script that:
 3. Asks for a 512-token answer.  
 4. Fails if the server loops, truncates immediately, or OOMs.
 
-Run it whenever PAR or CTX changes. The silent 1536-slot failure mode should never reach users twice `[LAB: RESULTS-MATRIX concurrency notes]`.
+Run it whenever PAR or CTX changes. The silent 1365-slot failure mode should never reach users twice `[LAB: RESULTS-MATRIX concurrency notes]`.
 
 
 ## What you should do Monday
@@ -269,7 +292,7 @@ Run it whenever PAR or CTX changes. The silent 1536-slot failure mode should nev
 4. Measure a real context-length histogram from production logs if you have them.
 5. Add a shared-prefix multi-turn case to the smoke suite before enabling reuse.
 
-The silent 1536-slot failure mode is too cheap to leave unguarded `[LAB: RESULTS-MATRIX concurrency notes]`.
+The silent 1365-slot failure mode is too cheap to leave unguarded `[LAB: RESULTS-MATRIX concurrency notes]`.
 
 
 ## Cross-links inside this book

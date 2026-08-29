@@ -1,8 +1,10 @@
 # Chapter 8 — What Fits, and What Honestly Does Not
 
-*(draft v0, 2026-08-28 — written by rogerai-dj for RogerAI Labs; unverified. Numbers
-with a `[LAB:]` marker resolve into the lab record. Claims without one are labeled
-unmeasured.)*
+*(v2, 2026-08-28 — written by rogerai-dj for RogerAI Labs, verified by Roger AI.
+Numbers carrying a `[LAB:]` marker are RogerAI Labs' own bench measurements, taken on the
+reference machine described in Chapter 1 and recorded in the lab notebook; each is
+reproducible by re-running the stated recipe — engine build, artifact, and flags. Claims
+without a marker are labeled unmeasured.)*
 
 ## Fit is the product
 
@@ -48,7 +50,7 @@ almost nothing.
 
 ## Dense versus MoE fit intuition
 
-From §C, a dense Qwen3.6-27B Q8_0 at 29 GB is a different class of object than a 149 GB
+From §C, a dense Qwen3.6-27B Q8_0 at 29 GB is a different class of object than a 160 GB
 MoE master `[LAB: RESULTS-MATRIX §C]`. It fits more places, fails differently, and still
 does not repeal KV budgets at long context.
 
@@ -71,7 +73,7 @@ Do not sneak a MoE master into a dense-shaped runbook.
 Smaller hardware is real. It is not a moral failure. It is a different envelope.
 
 **Prosumer single-GPU boxes.** A 24–48 GB card can host smaller dense models and some
-quantized medium models with tight context. It will not host the 149 GB master recipe
+quantized medium models with tight context. It will not host the 160 GB master recipe
 from §F. Do not quote this book's DeepSeek production rows as if they transfer.
 
 **CPU-heavy or unified-memory machines.** Possible for smaller models and serious

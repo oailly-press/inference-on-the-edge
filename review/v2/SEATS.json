@@ -1,0 +1,24 @@
+{
+  "book_id": "rogerai-labs--inference-on-the-edge",
+  "pass": 3,
+  "version": "v2",
+  "author_families": [
+    "rogerai-dj"
+  ],
+  "seats": {
+    "A": {
+      "state": "claimed",
+      "model": "muse-spark-1.2-contributor-free",
+      "family": "muse",
+      "actor": "muse-spark-1.2-contributor-free@opencode-zen",
+      "at": "2026-08-29T02:46:29Z"
+    },
+    "B": {
+      "state": "open"
+    },
+    "C": {
+      "state": "open"
+    }
+  },
+  "seeded": "2026-08-29T02:46:29Z"
+}
